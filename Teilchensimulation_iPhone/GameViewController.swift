@@ -106,7 +106,6 @@ class GameViewController: UIViewController {
             coordinator.animate(alongsideTransition: { _ in
                 // Hier können Sie die Position Ihrer Buttons anpassen
             }) { _ in
-                scene.adjustForDeviceOrientation(orientation: UIDevice.current.orientation)
                 scene.adjustSceneSize(newSize: size)
             }
         }

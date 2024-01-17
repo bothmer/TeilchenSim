@@ -318,6 +318,21 @@ class GameScene: SKScene {
         return particleNode
     }
 
+    func positionUIElements() {
+        // Positionierung der "wärmer" und "kälter" Buttons
+        warmerButtonBackground.position = CGPoint(x: self.size.width / 2 + 60, y: 50)
+        colderButtonBackground.position = CGPoint(x: self.size.width / 2 - 60, y: 50)
+
+        // Positionierung der "+" und "-" Buttons
+        minusButton.position = CGPoint(x: colderButtonBackground.position.x - 80, y: colderButtonBackground.position.y)
+        plusButton.position = CGPoint(x: warmerButtonBackground.position.x + 80, y: warmerButtonBackground.position.y)
+
+        // Positionierung der Energielabels
+        kineticEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 30)
+        potentialEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 50)
+        totalEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 70)
+    }
+
     override func didMove(to view: SKView) {
         // debugging
         print("GameScene: didMove wurde aufgerufen")
@@ -423,19 +438,17 @@ class GameScene: SKScene {
     override func didChangeSize(_ oldSize: CGSize) {
         super.didChangeSize(oldSize)
 
+        // Positioniere UI-Elemente neu
+        if isInitialized {
+            positionUIElements()
+        }
+        
         // Überprüfen Sie, ob sich die Breite und Höhe vertauscht haben
         if oldSize.width == self.size.height && oldSize.height == self.size.width {
             for particle in particleSimulation.particles {
                 particle.swapCoordinates()
             }
         }
-    }
-
-
-    func adjustForDeviceOrientation(orientation: UIDeviceOrientation) {
-        let isLandscape = orientation == .landscapeLeft || orientation == .landscapeRight
-        //let rotationAngle = isLandscape ? CGFloat.pi / 2 : 0
-        //containerNode.zRotation = rotationAngle
     }
 
     func adjustSceneSize(newSize: CGSize) {
