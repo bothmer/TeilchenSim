@@ -102,8 +102,15 @@ class GameViewController: UIViewController {
             print("Größenänderung von \(oldSize) zu \(size) abgeschlossen.")
         }
 
-        // Weitere Anpassungen, die nicht animiert werden müssen, hier vornehmen
-    }
+        if let skView = self.view as? SKView, let scene = skView.scene as? GameScene {
+            coordinator.animate(alongsideTransition: { _ in
+                // Hier können Sie die Position Ihrer Buttons anpassen
+            }) { _ in
+                scene.adjustForDeviceOrientation(orientation: UIDevice.current.orientation)
+                scene.adjustSceneSize(newSize: size)
+            }
+        }
+     }
 
     
 }

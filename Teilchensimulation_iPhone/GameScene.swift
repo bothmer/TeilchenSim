@@ -115,6 +115,14 @@ class Particle {
         self.radius = radius
     }
 
+    // Methode zum Austauschen der X- und Y-Koordinaten
+    func swapCoordinates() {
+        // Tauschen der Positionskoordinaten
+        position = Vector(x: position.y, y: position.x)
+        // Tauschen der Geschwindigkeitskoordinaten
+        velocity = Vector(x: velocity.y, y: velocity.x)
+    }
+
     func update() {
         // Aktualisiere die Position basierend auf der Geschwindigkeit
         position = position + velocity
@@ -278,7 +286,7 @@ class ParticleSimulation {
 }
 
 class GameScene: SKScene {
-    private var containerNode = SKNode() // Der Container-Knoten
+ //   private var containerNode = SKNode() // Der Container-Knoten
     var particleSimulation: ParticleSimulation!
 //    var colderButtonBackground: SKLabelNode!
 //    var warmerButtonBackground: SKLabelNode!
@@ -293,6 +301,8 @@ class GameScene: SKScene {
     
     var isInitialized = false
 
+
+    
     // erzeuge in der Scene eine Kreis fuer ein Teilchen
     func createParticleNode(for particle: Particle) -> SKShapeNode {
         let particleNode = SKShapeNode(circleOfRadius: particle.radius)
@@ -300,7 +310,7 @@ class GameScene: SKScene {
         particleNode.fillColor = SKColor.white
         particleNode.zPosition = -1 // Partikel über den Linien, unter den Buttons
         addChild(particleNode)
-        // containerNode.addChild(particleNode)
+        //containerNode.addChild(particleNode)
         
         // debugging
         print("Partikelknoten hinzugefügt bei \(particleNode.position)")
@@ -320,7 +330,7 @@ class GameScene: SKScene {
         backgroundColor = SKColor.black
         
         // Füge den Container-Knoten der Szene hinzu
-        addChild(containerNode)
+        //addChild(containerNode)
 
         // Erstelle die Partikelsimulation mit den Dimensionen der Szene
         particleSimulation = ParticleSimulation(numberOfParticles: 30, maxX: self.size.width, maxY: self.size.height)
@@ -410,9 +420,29 @@ class GameScene: SKScene {
 
     }
 
+    override func didChangeSize(_ oldSize: CGSize) {
+        super.didChangeSize(oldSize)
+
+        // Überprüfen Sie, ob sich die Breite und Höhe vertauscht haben
+        if oldSize.width == self.size.height && oldSize.height == self.size.width {
+            for particle in particleSimulation.particles {
+                particle.swapCoordinates()
+            }
+        }
+    }
 
 
-    
+    func adjustForDeviceOrientation(orientation: UIDeviceOrientation) {
+        let isLandscape = orientation == .landscapeLeft || orientation == .landscapeRight
+        //let rotationAngle = isLandscape ? CGFloat.pi / 2 : 0
+        //containerNode.zRotation = rotationAngle
+    }
+
+    func adjustSceneSize(newSize: CGSize) {
+        self.size = newSize
+        // Führen Sie hier weitere Anpassungen durch, falls nötig
+    }
+
     
     // Erstellt und konfiguriert einen NumberFormatter für die Anzeige der Energiebeträge.
     private func createEnergyValueFormatter() -> NumberFormatter {
