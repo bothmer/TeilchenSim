@@ -52,6 +52,13 @@ struct Vector {
     static func +=(left: inout Vector, right: Vector) {
         left = left + right
     }
+    
+    // Methode zum Drehen des Vektors um einen gegebenen Winkel
+    func rotated(by angle: CGFloat) -> Vector {
+        let cosAngle = cos(angle)
+        let sinAngle = sin(angle)
+        return Vector(x: x * cosAngle - y * sinAngle, y: x * sinAngle + y * cosAngle)
+    }
 }
 
 // Hilfsfunktion, um die Geschwindigkeit in eine Farbe umzurechnen
