@@ -115,7 +115,7 @@ class Particle {
     var mass: CGFloat = 1.0 // Standardmasse
     weak var node: SKShapeNode?
 
-    
+    // Initialisierung
     init(position: Vector, velocity: Vector, radius: CGFloat) {
         self.position = position
         self.velocity = velocity
@@ -204,6 +204,14 @@ class ParticleSimulation {
     var particles: [Particle] = []
     var lineNodes = [SKShapeNode]()
 
+    // Exponentielle Glättungskonstante
+    let alpha: CGFloat = 0.01
+
+    // Geglättete Energiewerte
+    var smoothedKineticEnergy: CGFloat = 0
+    var smoothedPotentialEnergy: CGFloat = 0
+    var smoothedEnergy: CGFloat = 0
+
     // Berechnet die gesamte kinetische Energie aller Partikel.
     func totalKineticEnergy() -> CGFloat {
         var totalEnergy: CGFloat = 0.0
@@ -233,6 +241,16 @@ class ParticleSimulation {
         return totalKineticEnergy() + totalPotentialEnergy()
     }
 
+    // Aktualisierung der geglätteten Energie
+    func updateSmoothedEnergies() {
+        let currentKineticEnergy = totalKineticEnergy()
+        let currentPotentialEnergy = totalPotentialEnergy()
+        
+        // Exponentielle Glättung anwenden
+        smoothedKineticEnergy = alpha * currentKineticEnergy + (1 - alpha) * smoothedKineticEnergy
+        smoothedPotentialEnergy = alpha * currentPotentialEnergy + (1 - alpha) * smoothedPotentialEnergy
+        smoothedEnergy = smoothedKineticEnergy+smoothedPotentialEnergy
+    }
         
     init(numberOfParticles: Int, maxX: CGFloat, maxY: CGFloat) {
         for _ in 0..<numberOfParticles {
@@ -248,7 +266,9 @@ class ParticleSimulation {
     }
 
     func update(maxX: CGFloat, maxY: CGFloat, scene: SKScene) {
-        
+        // Energien berechnen und glaetten
+        updateSmoothedEnergies()
+
         // Entfernen Sie alle vorherigen Linien
         for line in lineNodes {
             line.removeFromParent()
@@ -335,7 +355,7 @@ class GameScene: SKScene {
         plusButton.position = CGPoint(x: warmerButtonBackground.position.x + 80, y: warmerButtonBackground.position.y)
 
         // Positionierung der Energielabels
-        kineticEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 30)
+        kineticEnergyLabel.position = CGPoint(x: 10, y: self.size.height - 30)
         potentialEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 50)
         totalEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 70)
     }
@@ -423,15 +443,18 @@ class GameScene: SKScene {
         
         // Initialisiert die Labels für die Anzeige der Energiewerte.
         kineticEnergyLabel = createEnergyLabel()
-        kineticEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 30)
+        kineticEnergyLabel.horizontalAlignmentMode = .left  // Setzen Sie die Ausrichtung auf links
+        kineticEnergyLabel.position = CGPoint(x: 10, y: self.size.height - 40)
         addChild(kineticEnergyLabel)
 
         potentialEnergyLabel = createEnergyLabel()
-        potentialEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 50)
+        potentialEnergyLabel.horizontalAlignmentMode = .left
+        potentialEnergyLabel.position = CGPoint(x: 10, y: self.size.height - 60)
         addChild(potentialEnergyLabel)
 
         totalEnergyLabel = createEnergyLabel()
-        totalEnergyLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 70)
+        totalEnergyLabel.horizontalAlignmentMode = .left
+        totalEnergyLabel.position = CGPoint(x: 10, y: self.size.height - 80)
         addChild(totalEnergyLabel)
         
         // Initialisiere den NumberFormatter
@@ -485,9 +508,9 @@ class GameScene: SKScene {
         }
         
         // Setzt die Texte der Labels auf die aktuellen Energiewerte mit einer Nachkommastelle.
-        kineticEnergyLabel.text = "Kinetic Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.totalKineticEnergy())) ?? "")"
-        potentialEnergyLabel.text = "Potential Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.totalPotentialEnergy())) ?? "")"
-        totalEnergyLabel.text = "Total Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.totalEnergy())) ?? "")"
+        kineticEnergyLabel.text = "Kinetic Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedKineticEnergy)) ?? "")"
+        potentialEnergyLabel.text = "Potential Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedPotentialEnergy)) ?? "")"
+        totalEnergyLabel.text = "Total Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedEnergy)) ?? "")"
         
         // Debugging
         //print("MaxX: \(self.frame.maxX)")
