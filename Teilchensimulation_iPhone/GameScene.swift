@@ -80,13 +80,13 @@ let cutOff: CGFloat = max(sigma,2*radius) // cut off for the LJ-force
 
 // das Potential
 func lennardJonesPotential(distance: CGFloat) -> CGFloat {
-    let sigmaOverR = sigma / distance
-    // if the distance is to small replace it by the cutoff. This implies that the force will be 0
-    if distance < cutOff {
-        let sigmaOverR = sigma / cutOff
-    }
+    // Überprüfen Sie, ob die Distanz kleiner als der Cutoff ist, und ersetzen Sie sie ggf.
+    let effectiveDistance = distance < cutOff ? cutOff : distance
+    let sigmaOverR = sigma / effectiveDistance
+
     let sigmaOverR6 = pow(sigmaOverR, 6)
     let sigmaOverR12 = sigmaOverR6 * sigmaOverR6
+
     return 4 * epsilon * (sigmaOverR12 - sigmaOverR6)
 }
 
