@@ -287,7 +287,7 @@ class ParticleSimulation {
         for particle in particles {
             particle.update()
             particle.checkBounds(maxX: maxX, maxY: maxY)
-            particle.updateColor(minSpeed: 1, maxSpeed: 5) // Stelle sicher, dass die Geschwindigkeitswerte angemessen sind
+            particle.updateColor(minSpeed: 1, maxSpeed: 8) // Stelle sicher, dass die Geschwindigkeitswerte angemessen sind
         }
         
         // Zeichne Linien für nahe Partikel

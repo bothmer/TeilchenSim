@@ -22,6 +22,9 @@ class GameViewController: UIViewController {
             // debugging
             print("SKView gefunden")
             
+            // Einstellen der gewünschten FPS
+            view.preferredFramesPerSecond = 60
+            
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") {
                 // Set the scale mode to scale to fit the window
