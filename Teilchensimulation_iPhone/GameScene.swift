@@ -168,7 +168,19 @@ class Particle {
             let distance = delta.norm()
             let radiusSum = self.radius + other.radius
 
-            if distance < radiusSum {
+            // debugging
+            if distance == 0 {
+                //print("distance zero")
+            }
+        
+            // collide if the particles touch or overlap.
+            // and they move towards each other
+        
+            // if the distance is 0 we assume that the particles move
+            // away from each other. (for stability reasons)
+            // This can lead to particles passing through each other.
+        
+            if 0<distance  && distance < radiusSum {
                 let normal = delta.normalized()
                 let relativeVel = velocity - other.velocity
                 let dotProduct = relativeVel * normal
@@ -185,12 +197,15 @@ class Particle {
         let delta = position - other.position // Differenz der Positionen
         let distance = delta.norm() // Distanz zwischen den Partikeln
 
-        let forceMagnitude = lennardJonesForce(distance: distance)
-        let forceDirection = delta.normalized() // Richtung der Kraft
-        let force = forceMagnitude * forceDirection  // Vektor der Kraft
-
-        self.velocity += (1/2) * force // Kraft auf dieses Partikel anwenden
-        other.velocity -= (1/2) * force  // Gegenkraft auf anderes Partikel anwenden
+        // if the distance is 0 no force is computed (for stability)
+        if distance > 0 {
+            let forceMagnitude = lennardJonesForce(distance: distance)
+            let forceDirection = delta.normalized() // Richtung der Kraft
+            let force = forceMagnitude * forceDirection  // Vektor der Kraft
+            
+            self.velocity += (1/2) * force // Kraft auf dieses Partikel anwenden
+            other.velocity -= (1/2) * force  // Gegenkraft auf anderes Partikel anwenden
+        }
     }
     
     func kineticEnergy() -> CGFloat {
@@ -340,7 +355,7 @@ class GameScene: SKScene {
         //containerNode.addChild(particleNode)
         
         // debugging
-        print("Partikelknoten hinzugefügt bei \(particleNode.position)")
+        //print("Partikelknoten hinzugefügt bei \(particleNode.position)")
 
         return particleNode
     }
@@ -362,7 +377,7 @@ class GameScene: SKScene {
 
     override func didMove(to view: SKView) {
         // debugging
-        print("GameScene: didMove wurde aufgerufen")
+        //print("GameScene: didMove wurde aufgerufen")
         
         
         // Setze die Größe der Szene auf die Größe der Ansicht
@@ -508,9 +523,9 @@ class GameScene: SKScene {
         }
         
         // Setzt die Texte der Labels auf die aktuellen Energiewerte mit einer Nachkommastelle.
-        kineticEnergyLabel.text = "Kinetic Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedKineticEnergy)) ?? "")"
-        potentialEnergyLabel.text = "Potential Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedPotentialEnergy)) ?? "")"
-        totalEnergyLabel.text = "Total Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedEnergy)) ?? "")"
+        //kineticEnergyLabel.text = "Kinetic Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedKineticEnergy)) ?? "")"
+        //potentialEnergyLabel.text = "Potential Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedPotentialEnergy)) ?? "")"
+        //totalEnergyLabel.text = "Total Energy: \(energyValueFormatter.string(from: NSNumber(value: particleSimulation.smoothedEnergy)) ?? "")"
         
         // Debugging
         //print("MaxX: \(self.frame.maxX)")
@@ -529,7 +544,10 @@ class GameScene: SKScene {
             if node.name == "warmerButton" {
                 // Erhöhe die Geschwindigkeit aller Partikel um 10%
                 for particle in particleSimulation.particles {
-                    particle.velocity = 1.1 * particle.velocity
+                    // wenn die Geschwindigkeit zu hoch wird, ist die simulation nicht mehr angemessen
+                    if (particle.velocity.x < 10 && particle.velocity.y < 10) {
+                        particle.velocity = 1.1 * particle.velocity
+                    }
                 }
             } else if node.name == "colderButton" {
                 // Verringere die Geschwindigkeit aller Partikel um 10%

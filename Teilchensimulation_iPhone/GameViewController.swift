@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         // debugging
-        print("viewDidLoad wurde aufgerufen")
+        //print("viewDidLoad wurde aufgerufen")
         
         if let view = self.view as! SKView? {
             
@@ -35,13 +35,10 @@ class GameViewController: UIViewController {
             }
             
             view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-            
+                        
             // Aktivieren Sie diese Optionen, um Debugging-Informationen in der SKView anzuzeigen
-            view.showsFPS = true
-            view.showsNodeCount = true
+            view.showsFPS = false
+            view.showsNodeCount = false
             view.showsPhysics = true
         } else {
             print("Keine SKView gefunden")
