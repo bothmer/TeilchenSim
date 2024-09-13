@@ -408,7 +408,8 @@ class GameScene: SKScene {
 
         // Erstelle die Beschriftung für den "wärmer" Button
         let warmerButtonLabel = SKLabelNode(fontNamed: "Helvetica")
-        warmerButtonLabel.text = "Wärmer"
+        //warmerButtonLabel.text = "Wärmer"
+        warmerButtonLabel.text = NSLocalizedString("warmer_button", comment: "Button to increase temperature")
         warmerButtonLabel.fontSize = 20
         warmerButtonLabel.fontColor = SKColor.white
         warmerButtonLabel.position = CGPoint(x: 0, y: -10) // Zentriert auf dem Hintergrund
@@ -425,7 +426,8 @@ class GameScene: SKScene {
 
         // Erstelle die Beschriftung für den "kälter" Button
         let colderButtonLabel = SKLabelNode(fontNamed: "Helvetica")
-        colderButtonLabel.text = "Kälter"
+        //colderButtonLabel.text = "Kälter"
+        colderButtonLabel.text = NSLocalizedString("colder_button", comment: "Button to decrease temperature")
         colderButtonLabel.fontSize = 20
         colderButtonLabel.fontColor = SKColor.white
         colderButtonLabel.position = CGPoint(x: 0, y: -10) // Zentriert auf dem Hintergrund

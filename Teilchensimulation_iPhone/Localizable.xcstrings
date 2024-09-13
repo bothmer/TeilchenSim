@@ -1,7 +1,40 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "colder_button" : {
+      "comment" : "Button to decrease temperature",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kälter"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "colder"
+          }
+        }
+      }
+    },
+    "warmer_button" : {
+      "comment" : "Button to increase temperature",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wärmer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "warmer"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

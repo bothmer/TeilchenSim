@@ -18,6 +18,7 @@
 		83507F152B4D2903008C4A52 /* Teilchensimulation_iPhoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83507F142B4D2903008C4A52 /* Teilchensimulation_iPhoneTests.swift */; };
 		83507F1F2B4D2903008C4A52 /* Teilchensimulation_iPhoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83507F1E2B4D2903008C4A52 /* Teilchensimulation_iPhoneUITests.swift */; };
 		83507F212B4D2903008C4A52 /* Teilchensimulation_iPhoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83507F202B4D2903008C4A52 /* Teilchensimulation_iPhoneUITestsLaunchTests.swift */; };
+		836CD3172C9490CB004F0804 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 836CD3162C9490CB004F0804 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		83507F1A2B4D2903008C4A52 /* Teilchensimulation_iPhoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Teilchensimulation_iPhoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83507F1E2B4D2903008C4A52 /* Teilchensimulation_iPhoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teilchensimulation_iPhoneUITests.swift; sourceTree = "<group>"; };
 		83507F202B4D2903008C4A52 /* Teilchensimulation_iPhoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teilchensimulation_iPhoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		836CD3162C9490CB004F0804 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				83507F042B4D2902008C4A52 /* Main.storyboard */,
 				83507F072B4D2903008C4A52 /* Assets.xcassets */,
 				83507F092B4D2903008C4A52 /* LaunchScreen.storyboard */,
+				836CD3162C9490CB004F0804 /* Localizable.xcstrings */,
 			);
 			path = Teilchensimulation_iPhone;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			files = (
 				83507F062B4D2902008C4A52 /* Main.storyboard in Resources */,
 				83507EFD2B4D2902008C4A52 /* GameScene.sks in Resources */,
+				836CD3172C9490CB004F0804 /* Localizable.xcstrings in Resources */,
 				83507F082B4D2903008C4A52 /* Assets.xcassets in Resources */,
 				83507F0B2B4D2903008C4A52 /* LaunchScreen.storyboard in Resources */,
 				83507EFF2B4D2902008C4A52 /* Actions.sks in Resources */,
