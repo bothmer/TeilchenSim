@@ -13,7 +13,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "colder"
+            "value" : "Colder"
           }
         }
       }
@@ -30,7 +30,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "warmer"
+            "value" : "Warmer"
           }
         }
       }
