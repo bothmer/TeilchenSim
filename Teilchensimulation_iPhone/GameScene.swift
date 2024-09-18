@@ -390,7 +390,7 @@ class GameScene: SKScene {
         //addChild(containerNode)
 
         // Erstelle die Partikelsimulation mit den Dimensionen der Szene
-        particleSimulation = ParticleSimulation(numberOfParticles: 30, maxX: self.size.width, maxY: self.size.height)
+        particleSimulation = ParticleSimulation(numberOfParticles: 60, maxX: self.size.width, maxY: self.size.height)
 
         for particle in particleSimulation.particles {
             let particleNode = createParticleNode(for: particle)
