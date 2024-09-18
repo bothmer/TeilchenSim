@@ -12,4 +12,8 @@ Diese App ist völlig kostenlos und enthält keine Werbung oder In-App-Käufe. S
 
 Lass die faszinierende Welt der Teilchen auf dem Bildschirm lebendig werden und entdecke die Physik hinter den Phasenübergängen!
 
-(Diese App wurde mit Hilfe von GPT-4 entwickelt)
+
+Diese App wurde mit Hilfe von GPT-4 entwickelt:
+
+Endwicklung der App in Swift: https://chatgpt.com/share/66ea8824-4d90-8011-8bf9-25a8884810b8
+
